@@ -19,13 +19,13 @@
     <services>
         <service>
             <name>SUPERSET_37</name>
-            <displayName>Apache Superset</displayName>
+            <displayName>Superset_37</displayName>
             <comment></comment>
             <version>0.37.0</version>
             <components>
                 <component>
                     <name>SUPERSET_37</name>
-                    <displayName>Apache Superset</displayName>
+                    <displayName>Superset_37 Superset</displayName>
                     <category>MASTER</category>
                     <cardinality>1+</cardinality>
                     <versionAdvertised>true</versionAdvertised>
