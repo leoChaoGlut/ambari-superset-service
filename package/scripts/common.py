@@ -11,8 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from params import superset_config
+
+supersetPort = superset_config['SUPERSET_WEBSERVER_PORT']
 
 supersetHome = '/data/superset'
 
-startCmdPrefix = 'gunicorn -w 4 -k gevent --timeout 120 -b 0.0.0.0:10300 --limit-request-line 0 --limit-request-field_size 0 '
+startCmdPrefix = 'gunicorn -w 4 -k gevent --timeout 120 -b 0.0.0.0:{0} --limit-request-line 0 --limit-request-field_size 0 ' \
+    .format(supersetPort)
 startCmdSuffix = 'superset.app:create_app()'
