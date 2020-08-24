@@ -21,40 +21,26 @@
 -->
 <configuration>
     <property>
-        <name>SUPERSET_WEBSERVER_PORT</name>
-        <value>10300</value>
+        <name>executor.port</name>
+        <value>12321</value>
     </property>
     <property>
-        <name>content</name>
-        <display-name>superset_config.py template</display-name>
-        <value>
-            <![CDATA[
-SQLALCHEMY_DATABASE_URI = 'mysql://superset:superset@datamaster01/superset'
-BABEL_DEFAULT_LOCALE = "zh"
-
-CACHE_CONFIG = {
-    'CACHE_TYPE': 'filesystem',
-    'CACHE_DEFAULT_TIMEOUT': 10 * 60,  # sec
-    'CACHE_DIR': '/data/superset/cache',
-    'CACHE_THRESHOLD': 10000,
-}
-
-CSV_EXPORT = {"encoding": "utf-8"}
-
-SQLLAB_TIMEOUT = 60
-
-EMAIL_NOTIFICATIONS = False  # all the emails are sent using dryrun
-SMTP_HOST = "localhost"
-SMTP_USER = "superset"
-SMTP_PORT = 25
-SMTP_PASSWORD = "superset"
-SMTP_MAIL_FROM = "superset@superset.com"
-            ]]>
-        </value>
-        <value-attributes>
-            <type>content</type>
-            <show-property-name>false</show-property-name>
-        </value-attributes>
-        <on-ambari-upgrade add="true"/>
+        <name>azkaban.jobtype.plugin.dir</name>
+        <value>plugins/jobtypes</value>
+    </property>
+    <property>
+        <name>executor.maxThreads</name>
+        <value>100</value>
+    </property>
+    <property>
+        <name>executor.flow.threads</name>
+        <value>100</value>
+    </property>
+    <property require-input="true">
+        <name>azkaban.webserver.url</name>
+        <value></value>
+        <description>
+            example: http://localhost:10100
+        </description>
     </property>
 </configuration>

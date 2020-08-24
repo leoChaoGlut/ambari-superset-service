@@ -18,8 +18,11 @@ from resource_management.libraries.script.script import Script
 # config object that holds the configurations declared in the config xml file
 config = Script.get_config()
 
+print(config)
+azkaban_executor_properties = config['configurations']['azkaban-executor.properties']
+print(azkaban_executor_properties)
 superset_config = config['configurations']['superset_config.py']
-
+print(superset_config)
 host_info = config['clusterHostInfo']
 host_level_params = config['hostLevelParams']
 java_home = host_level_params['java_home']

@@ -25,7 +25,7 @@
             <components>
                 <component>
                     <name>SUPERSET_37</name>
-                    <displayName>Apache Superset</displayName>
+                    <displayName>Superset_37</displayName>
                     <category>SLAVE</category>
                     <cardinality>1+</cardinality>
                     <versionAdvertised>true</versionAdvertised>
