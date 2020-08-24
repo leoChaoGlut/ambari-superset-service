@@ -14,7 +14,7 @@
 
 import os.path as path
 
-from common import supersetHome, startCmdPrefix, startCmdSuffix
+from common import supersetHome, startCmdPrefixTmpl, startCmdSuffix
 from resource_management.core.exceptions import ExecutionFailed, ComponentIsNotRunning
 from resource_management.core.resources.system import Execute
 from resource_management.libraries.script.script import Script
@@ -46,11 +46,11 @@ class Superset(Script):
         )
 
     def stop(self, env):
-        startCmd = startCmdPrefix + startCmdSuffix
+        startCmd = self.buildStartCmdPrefix() + startCmdSuffix
         Execute("ps -ef |grep -v grep | grep '" + startCmd + "'|awk '{print $2}' |xargs kill -9 ")
 
     def start(self, env):
-        startCmd = startCmdPrefix + '"' + startCmdSuffix + '"'
+        startCmd = self.buildStartCmdPrefix() + '"' + startCmdSuffix + '"'
         Execute(
             'cd ' + supersetHome + ' && '
                                    '. venv/bin/activate && nohup ' + startCmd + ' &'
@@ -58,7 +58,7 @@ class Superset(Script):
 
     def status(self, env):
         try:
-            startCmd = startCmdPrefix + startCmdSuffix
+            startCmd = self.buildStartCmdPrefix() + startCmdSuffix
             Execute(
                 "export AZ_CNT=`ps -ef |grep -v grep |grep '" + startCmd + "' | wc -l` && `if [ $AZ_CNT -ne 0 ];then exit 0;else exit 3;fi `"
             )
@@ -77,6 +77,10 @@ class Superset(Script):
                     f.write(key_val_template.format(key, value))
             if superset_config.has_key('content'):
                 f.write(str(superset_config['content']))
+
+    def buildStartCmdPrefix(self):
+        from params import superset_config
+        return startCmdPrefixTmpl.format(superset_config['SUPERSET_WEBSERVER_PORT'])
 
 
 if __name__ == '__main__':

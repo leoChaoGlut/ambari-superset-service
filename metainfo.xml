@@ -19,7 +19,7 @@
     <services>
         <service>
             <name>SUPERSET_37</name>
-            <displayName>Apache Superset</displayName>
+            <displayName>Superset_37</displayName>
             <comment></comment>
             <version>0.37.0</version>
             <components>
