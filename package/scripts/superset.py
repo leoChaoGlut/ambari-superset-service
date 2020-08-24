@@ -49,7 +49,7 @@ class Superset(Script):
         Execute("ps -ef |grep -v grep | grep '" + startCmdSuffix + "'|awk '{print $2}' |xargs kill -9 ")
 
     def start(self, env):
-        port = self.configure()
+        port = self.configure(env)
         startCmd = startCmdPrefixTmpl.format(port) + '"' + startCmdSuffix + '"'
         Execute(
             'cd ' + supersetHome + ' && '
