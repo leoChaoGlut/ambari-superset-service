@@ -38,7 +38,7 @@ class Superset(Script):
             'cd ' + supersetHome + ' && '
                                    '. venv/bin/activate && '
                                    'pip3 install --upgrade setuptools pip && '
-                                   'pip3 install mysqlclient pyhive flask_cors gevent apache-superset && '
+                                   'pip3 install mysqlclient pyhive flask_cors gevent apache-superset requests && '
                                    'superset db upgrade && '
                                    'export FLASK_APP=superset && '
                                    'flask fab create-admin --username admin --password admin --firstname admin --lastname admin --email admin@admin.com && '
