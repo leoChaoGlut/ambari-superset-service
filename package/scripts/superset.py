@@ -34,6 +34,7 @@ class Superset(Script):
         self.configure(env)
 
         Execute(
+            'export LC_ALL=en_US.UTF-8 && export LANG=en_US.UTF-8 && '
             'cd ' + supersetHome + ' && '
                                    '. venv/bin/activate && '
                                    'pip3 install --upgrade setuptools pip && '
@@ -46,11 +47,14 @@ class Superset(Script):
 
     def stop(self, env):
         startCmd = startCmdPrefix + startCmdSuffix
-        Execute("ps -ef |grep -v grep | grep '" + startCmd + "'|awk '{print $2}' |xargs kill -9")
+        Execute("ps -ef |grep -v grep | grep '" + startCmd + "'|awk '{print $2}' |xargs kill -9 ")
 
     def start(self, env):
         startCmd = startCmdPrefix + '"' + startCmdSuffix + '"'
-        Execute('. venv/bin/activate && nohup ' + startCmd + ' &')
+        Execute(
+            'cd ' + supersetHome + ' && '
+                                   '. venv/bin/activate && nohup ' + startCmd + ' &'
+        )
 
     def status(self, env):
         try:
@@ -68,11 +72,11 @@ class Superset(Script):
         from params import superset_config
         key_val_template = '{0}={1}\n'
         with open(path.join(supersetHome + '/venv/lib/python3.6/site-packages', 'superset_config.py'), 'w') as f:
-            if superset_config.has_key('content'):
-                f.write(str(superset_config['content']))
             for key, value in superset_config.iteritems():
                 if key != 'content':
                     f.write(key_val_template.format(key, value))
+            if superset_config.has_key('content'):
+                f.write(str(superset_config['content']))
 
 
 if __name__ == '__main__':

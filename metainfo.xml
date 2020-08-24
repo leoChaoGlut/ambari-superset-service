@@ -18,14 +18,14 @@
     <schemaVersion>2.0</schemaVersion>
     <services>
         <service>
-            <name>SUPERSET</name>
-            <displayName>Superset</displayName>
+            <name>SUPERSET_37</name>
+            <displayName>Apache Superset</displayName>
             <comment></comment>
             <version>0.37.0</version>
             <components>
                 <component>
-                    <name>SUPERSET</name>
-                    <displayName>Superset</displayName>
+                    <name>SUPERSET_37</name>
+                    <displayName>Apache Superset</displayName>
                     <category>SLAVE</category>
                     <cardinality>1+</cardinality>
                     <versionAdvertised>true</versionAdvertised>
@@ -39,10 +39,7 @@
             </components>
 
             <configuration-dependencies>
-                <config-type>azkaban-executor.properties.xml</config-type>
-                <config-type>azkaban-users.xml</config-type>
-                <config-type>azkaban-web.properties.xml</config-type>
-                <config-type>log4j.properties.xml</config-type>
+                <config-type>superset_config.py.xml</config-type>
             </configuration-dependencies>
 
         </service>
