@@ -26,18 +26,22 @@ class Superset(Script):
             'yum install -y gcc gcc-c++ libffi-devel python3-devel python3-pip python3-wheel openssl-devel cyrus-sasl-devel openldap-devel mysql-devel'
         )
         Execute('pip3 install virtualenv')
-        Execute('python3 -m venv venv')
+
+        Execute('mkdir -p {0}'.format(supersetHome))
+
+        Execute('cd {0} && python3 -m venv venv'.format(supersetHome))
 
         self.configure(env)
 
         Execute(
-            '. venv/bin/activate && '
-            'pip3 install --upgrade setuptools pip && '
-            'pip3 install mysqlclient pyhive flask_cors gevent apache-superset && '
-            'superset db upgrade && '
-            'export FLASK_APP=superset && '
-            'flask fab create-admin --username admin --password admin --firstname admin --lastname admin --email admin@admin.com && '
-            'superset init '
+            'cd ' + supersetHome + ' && '
+                                   '. venv/bin/activate && '
+                                   'pip3 install --upgrade setuptools pip && '
+                                   'pip3 install mysqlclient pyhive flask_cors gevent apache-superset && '
+                                   'superset db upgrade && '
+                                   'export FLASK_APP=superset && '
+                                   'flask fab create-admin --username admin --password admin --firstname admin --lastname admin --email admin@admin.com && '
+                                   'superset init '
         )
 
     def stop(self, env):
