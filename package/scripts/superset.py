@@ -14,7 +14,7 @@
 
 import os.path as path
 
-from common import supersetHome, startCmdPrefix, startCmdSuffix
+from common import supersetHome, startCmdPrefixTmpl, startCmdSuffix
 from resource_management.core.exceptions import ExecutionFailed, ComponentIsNotRunning
 from resource_management.core.resources.system import Execute
 from resource_management.libraries.script.script import Script
@@ -46,11 +46,11 @@ class Superset(Script):
         )
 
     def stop(self, env):
-        startCmd = startCmdPrefix + startCmdSuffix
-        Execute("ps -ef |grep -v grep | grep '" + startCmd + "'|awk '{print $2}' |xargs kill -9 ")
+        Execute("ps -ef |grep -v grep | grep '" + startCmdSuffix + "'|awk '{print $2}' |xargs kill -9 ")
 
     def start(self, env):
-        startCmd = startCmdPrefix + '"' + startCmdSuffix + '"'
+        port = self.configure()
+        startCmd = startCmdPrefixTmpl.format(port) + '"' + startCmdSuffix + '"'
         Execute(
             'cd ' + supersetHome + ' && '
                                    '. venv/bin/activate && nohup ' + startCmd + ' &'
@@ -58,9 +58,8 @@ class Superset(Script):
 
     def status(self, env):
         try:
-            startCmd = startCmdPrefix + startCmdSuffix
             Execute(
-                "export AZ_CNT=`ps -ef |grep -v grep |grep '" + startCmd + "' | wc -l` && `if [ $AZ_CNT -ne 0 ];then exit 0;else exit 3;fi `"
+                "export AZ_CNT=`ps -ef |grep -v grep |grep '" + startCmdSuffix + "' | wc -l` && `if [ $AZ_CNT -ne 0 ];then exit 0;else exit 3;fi `"
             )
         except ExecutionFailed as ef:
             if ef.code == 3:
@@ -71,12 +70,16 @@ class Superset(Script):
     def configure(self, env):
         from params import superset_config
         key_val_template = '{0}={1}\n'
+        port = ''
         with open(path.join(supersetHome + '/venv/lib/python3.6/site-packages', 'superset_config.py'), 'w') as f:
             for key, value in superset_config.iteritems():
                 if key != 'content':
                     f.write(key_val_template.format(key, value))
+                if key == 'SUPERSET_WEBSERVER_PORT':
+                    port = value
             if superset_config.has_key('content'):
                 f.write(str(superset_config['content']))
+        return port
 
 
 if __name__ == '__main__':

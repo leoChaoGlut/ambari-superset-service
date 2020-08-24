@@ -26,7 +26,7 @@
                 <component>
                     <name>SUPERSET_37</name>
                     <displayName>Apache Superset</displayName>
-                    <category>SLAVE</category>
+                    <category>MASTER</category>
                     <cardinality>1+</cardinality>
                     <versionAdvertised>true</versionAdvertised>
                     <commandScript>

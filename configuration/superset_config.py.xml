@@ -29,7 +29,7 @@
         <display-name>superset_config.py template</display-name>
         <value>
             <![CDATA[
-SQLALCHEMY_DATABASE_URI = 'mysql://user:pwd@host/db'
+SQLALCHEMY_DATABASE_URI = 'mysql://superset:superset@datamaster01/superset'
 BABEL_DEFAULT_LOCALE = "zh"
 
 CACHE_CONFIG = {

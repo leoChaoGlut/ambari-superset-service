@@ -14,5 +14,5 @@
 
 supersetHome = '/data/superset'
 
-startCmdPrefix = 'gunicorn -w 4 -k gevent --timeout 120 -b 0.0.0.0:10300 --limit-request-line 0 --limit-request-field_size 0 '
+startCmdPrefixTmpl = 'gunicorn -w 4 -k gevent --timeout 120 -b 0.0.0.0:{0} --limit-request-line 0 --limit-request-field_size 0 '
 startCmdSuffix = 'superset.app:create_app()'
