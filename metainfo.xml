@@ -25,7 +25,7 @@
             <components>
                 <component>
                     <name>SUPERSET_37</name>
-                    <displayName>Superset_37 Superset</displayName>
+                    <displayName>Superset_37</displayName>
                     <category>MASTER</category>
                     <cardinality>1+</cardinality>
                     <versionAdvertised>true</versionAdvertised>
