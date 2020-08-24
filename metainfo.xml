@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+# -*- coding: utf-8 -*-
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+-->
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>SUPERSET</name>
+            <displayName>Superset</displayName>
+            <comment></comment>
+            <version>0.37.0</version>
+            <components>
+                <component>
+                    <name>SUPERSET</name>
+                    <displayName>Superset</displayName>
+                    <category>SLAVE</category>
+                    <cardinality>1+</cardinality>
+                    <versionAdvertised>true</versionAdvertised>
+                    <commandScript>
+                        <script>scripts/superset.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+
+            </components>
+
+            <configuration-dependencies>
+                <config-type>azkaban-executor.properties.xml</config-type>
+                <config-type>azkaban-users.xml</config-type>
+                <config-type>azkaban-web.properties.xml</config-type>
+                <config-type>log4j.properties.xml</config-type>
+            </configuration-dependencies>
+
+        </service>
+    </services>
+</metainfo>
