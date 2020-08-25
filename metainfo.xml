@@ -39,7 +39,7 @@
             </components>
 
             <configuration-dependencies>
-                <config-type>superset_config.py.xml</config-type>
+                <config-type>superset_config.py</config-type>
             </configuration-dependencies>
 
         </service>
