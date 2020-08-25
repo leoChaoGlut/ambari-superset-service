@@ -1,0 +1,10 @@
+{
+  "metadata_params": {},
+  "engine_params": {
+    "connect_args": {
+      "poll_interval": 0.1
+    }
+  },
+  "metadata_cache_timeout": {},
+  "schemas_allowed_for_csv_upload": []
+}
