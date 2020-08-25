@@ -34,15 +34,15 @@ class Superset(Script):
         self.configure(env)
 
         Execute(
-            'export LC_ALL=en_US.UTF-8 && export LANG=en_US.UTF-8 && '
-            'cd ' + supersetHome + ' && '
-                                   '. venv/bin/activate && '
-                                   'pip3 install --upgrade setuptools pip && '
-                                   'pip3 install mysqlclient pyhive flask_cors gevent apache-superset requests && '
-                                   'superset db upgrade && '
-                                   'export FLASK_APP=superset && '
-                                   'flask fab create-admin --username admin --password admin --firstname admin --lastname admin --email admin@admin.com && '
-                                   'superset init '
+            'export LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 SUPERSET_HOME=' + supersetHome + ' && '
+                                                                                         'cd ' + supersetHome + ' && '
+                                                                                                                '. venv/bin/activate && '
+                                                                                                                'pip3 install --upgrade setuptools pip && '
+                                                                                                                'pip3 install mysqlclient pyhive flask_cors gevent apache-superset requests && '
+                                                                                                                'superset db upgrade && '
+                                                                                                                'export FLASK_APP=superset && '
+                                                                                                                'flask fab create-admin --username admin --password admin --firstname admin --lastname admin --email admin@admin.com && '
+                                                                                                                'superset init '
         )
 
     def stop(self, env):
@@ -52,8 +52,9 @@ class Superset(Script):
         port = self.configure(env)
         startCmd = startCmdPrefixTmpl.format(port) + '"' + startCmdSuffix + '"'
         Execute(
-            'cd ' + supersetHome + ' && '
-                                   '. venv/bin/activate && nohup ' + startCmd + ' &'
+            'export SUPERSET_HOME=' + supersetHome + ' && '
+                                                     'cd $SUPERSET_HOME && '
+                                                     '. venv/bin/activate && nohup ' + startCmd + ' > superset.out 2>&1 &'
         )
 
     def status(self, env):

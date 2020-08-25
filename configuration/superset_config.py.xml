@@ -29,6 +29,9 @@
         <display-name>superset_config.py template</display-name>
         <value>
             <![CDATA[
+APP_ICON = "/static/assets/images/superset-logo-horiz.png"
+APP_ICON_WIDTH = 126
+
 SQLALCHEMY_DATABASE_URI = 'mysql://superset:superset@datamaster01/superset'
 BABEL_DEFAULT_LOCALE = "zh"
 
@@ -41,7 +44,26 @@ CACHE_CONFIG = {
 
 CSV_EXPORT = {"encoding": "utf-8"}
 
-SQLLAB_TIMEOUT = 60
+SQLLAB_TIMEOUT = 120
+
+# What is the Last N days relative in the time selector to:
+# 'today' means it is midnight (00:00:00) in the local timezone
+# 'now' means it is relative to the query issue time
+# If both start and end time is set to now, this will make the time
+# filter a moving window. By only setting the end time to now,
+# start time will be set to midnight, while end will be relative to
+# the query issue time.
+DEFAULT_RELATIVE_START_TIME = "today"
+DEFAULT_RELATIVE_END_TIME = "today"
+
+# Note that: RowLevelSecurityFilter is only given by default to the Admin role
+# and the Admin Role does have the all_datasources security permission.
+# But, if users create a specific role with access to RowLevelSecurityFilter MVC
+# and a custom datasource access, the table dropdown will not be correctly filtered
+# by that custom datasource access. So we are assuming a default security config,
+# a custom security config could potentially give access to setting filters on
+# tables that users do not have access to.
+ENABLE_ROW_LEVEL_SECURITY = False
 
 EMAIL_NOTIFICATIONS = False  # all the emails are sent using dryrun
 SMTP_HOST = "localhost"
