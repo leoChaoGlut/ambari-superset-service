@@ -33,7 +33,6 @@ APP_ICON = "/static/assets/images/superset-logo-horiz.png"
 APP_ICON_WIDTH = 126
 
 SQLALCHEMY_DATABASE_URI = 'mysql://superset:superset@datamaster01/superset'
-BABEL_DEFAULT_LOCALE = "zh"
 
 CACHE_CONFIG = {
     'CACHE_TYPE': 'filesystem',
@@ -63,7 +62,7 @@ DEFAULT_RELATIVE_END_TIME = "today"
 # by that custom datasource access. So we are assuming a default security config,
 # a custom security config could potentially give access to setting filters on
 # tables that users do not have access to.
-ENABLE_ROW_LEVEL_SECURITY = False
+ENABLE_ROW_LEVEL_SECURITY = True
 
 EMAIL_NOTIFICATIONS = False  # all the emails are sent using dryrun
 SMTP_HOST = "localhost"
